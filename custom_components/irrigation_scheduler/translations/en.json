@@ -1,0 +1,186 @@
+{
+  "title": "Irrigation Scheduler",
+  "config": {
+    "abort": {
+      "single_instance_allowed": "Only one Irrigation Scheduler instance is supported."
+    },
+    "step": {
+      "user": {
+        "title": "Set up irrigation",
+        "description": "Configure shared scheduling, rainfall and safety settings. Add zones afterwards using Configure.",
+        "data": {
+          "name": "Name",
+          "start_time": "Start time",
+          "weekday_cutoff": "Weekday cutoff",
+          "weekend_cutoff": "Weekend cutoff",
+          "holiday_cutoff": "Holiday cutoff",
+          "holiday_entity": "Holiday mode entity",
+          "rain_today_entity": "Today's rainfall entity",
+          "rain_today_limit": "Today's rainfall lockout",
+          "rain_yesterday_entity": "Yesterday's rainfall entity",
+          "rain_yesterday_limit": "Yesterday's rainfall lockout",
+          "inter_zone_delay": "Delay between zones",
+          "max_runtime": "Default maximum runtime"
+        }
+      }
+    },
+    "error": {
+      "entity_required": "Please select an entity.",
+      "name_required": "Please enter a zone name.",
+      "reset_must_exceed_trigger": "The reset threshold must be greater than the watering threshold."
+    }
+  },
+  "options": {
+    "abort": {
+      "no_zones": "No zones have been configured."
+    },
+    "step": {
+      "init": {
+        "title": "Configure irrigation",
+        "menu_options": {
+          "general": "General settings",
+          "add_zone": "Add zone",
+          "edit_zone": "Edit zone",
+          "remove_zone": "Remove zone"
+        }
+      },
+      "general": {
+        "title": "General settings",
+        "data": {
+          "start_time": "Start time",
+          "weekday_cutoff": "Weekday cutoff",
+          "weekend_cutoff": "Weekend cutoff",
+          "holiday_cutoff": "Holiday cutoff",
+          "holiday_entity": "Holiday mode entity",
+          "rain_today_entity": "Today's rainfall entity",
+          "rain_today_limit": "Today's rainfall lockout",
+          "rain_yesterday_entity": "Yesterday's rainfall entity",
+          "rain_yesterday_limit": "Yesterday's rainfall lockout",
+          "inter_zone_delay": "Delay between zones",
+          "max_runtime": "Default maximum runtime"
+        }
+      },
+      "edit_zone": {
+        "title": "Edit zone",
+        "data": {
+          "zone_id": "Zone"
+        }
+      },
+      "remove_zone": {
+        "title": "Remove zone",
+        "description": "The underlying valve and sensor entities are not removed.",
+        "data": {
+          "zone_id": "Zone"
+        }
+      },
+      "zone_basic": {
+        "title": "Zone valve and schedule",
+        "data": {
+          "name": "Zone name",
+          "category": "Zone category",
+          "valve_entity_id": "Watering valve (switch or valve)",
+          "linked_entity_id": "Controller availability sensor (optional)",
+          "duration_entity_id": "External failsafe duration entity (optional)",
+          "fixed_duration": "Initial watering duration",
+          "enabled": "Enabled",
+          "rain_sensitive": "Apply rain lockout",
+          "frequency": "Watering days",
+          "minimum_interval_hours": "Minimum interval",
+          "order": "Order"
+        }
+      },
+      "zone_moisture": {
+        "title": "Zone moisture",
+        "data": {
+          "moisture_trigger_type": "Moisture trigger",
+          "moisture_unavailable": "When trigger is unavailable",
+          "moisture_measurement_entity_ids": "Moisture measurement sensors"
+        },
+        "description": "Select one or more numeric moisture sensors. They are used directly with the numeric Water below and Reset above thresholds; they are optional only when using no trigger or a separate binary trigger."
+      },
+      "zone_numeric": {
+        "title": "Numeric moisture trigger",
+        "description": "Apply numeric thresholds to the moisture measurement sensors. Hysteresis prevents repeated switching near the threshold.",
+        "data": {
+          "moisture_below": "Water below",
+          "moisture_reset_above": "Reset above",
+          "moisture_response_mode": "Respond to"
+        }
+      },
+      "zone_binary": {
+        "title": "Binary moisture trigger",
+        "data": {
+          "moisture_trigger_state": "State meaning water required",
+          "moisture_trigger_entity_ids": "Binary trigger sensors",
+          "moisture_response_mode": "Respond to"
+        }
+      },
+      "zone_safety": {
+        "title": "Zone safety",
+        "data": {
+          "max_runtime": "Maximum runtime",
+          "allow_manual_when_disabled": "Allow manual run when disabled"
+        }
+      },
+      "zone_trigger_selection": {
+        "title": "Select moisture source",
+        "description": "Choose the moisture sensor used when the response mode is Selected sensor.",
+        "data": {
+          "moisture_selected_entity_id": "Active moisture source"
+        }
+      },
+      "zone_adaptive": {
+        "title": "Adaptive watering duration",
+        "description": "Optional: increase watering duration when completed daily minimum moisture readings fall progressively. {availability}.",
+        "data": {
+          "adaptive_duration_enabled": "Enable adaptive duration",
+          "adaptive_trend_days": "Consecutive declining days required",
+          "adaptive_min_drop": "Minimum drop per day",
+          "adaptive_boost_per_day": "Extra minutes per declining day",
+          "adaptive_max_boost": "Maximum extra minutes",
+          "adaptive_notify": "Notify in Home Assistant when applied"
+        }
+      }
+    },
+    "error": {
+      "entity_required": "Please select an entity.",
+      "name_required": "Please enter a zone name.",
+      "reset_must_exceed_trigger": "The reset threshold must be greater than the watering threshold."
+    }
+  },
+  "selector": {
+    "zone_category": {
+      "options": {
+        "pots": "Pots",
+        "greenhouse": "Greenhouse",
+        "border": "Border",
+        "lawn": "Lawn",
+        "other": "Other"
+      }
+    },
+    "watering_frequency": {
+      "options": {
+        "both": "Both odd and even days",
+        "odd": "Odd day of year",
+        "even": "Even day of year",
+        "interval": "Minimum interval"
+      }
+    },
+    "moisture_response_mode_numeric": {
+      "options": {
+        "selected": "Selected sensor",
+        "any": "Any sensor is dry",
+        "all": "All sensors are dry",
+        "average": "Average reading",
+        "minimum": "Lowest reading"
+      }
+    },
+    "moisture_response_mode_binary": {
+      "options": {
+        "selected": "Selected sensor",
+        "any": "Any sensor requires water",
+        "all": "All sensors require water"
+      }
+    }
+  }
+}

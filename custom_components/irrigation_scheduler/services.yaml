@@ -1,0 +1,39 @@
+run:
+  name: Run irrigation scheduler
+  description: Evaluate all zones and run eligible zones sequentially.
+  fields:
+    force:
+      name: Force
+      description: Ignore zone eligibility checks.
+      example: false
+      selector:
+        boolean:
+
+stop:
+  name: Stop irrigation
+  description: Cancel the active run and turn off every configured valve.
+
+run_zone:
+  name: Run irrigation zone
+  description: Run one configured irrigation zone.
+  fields:
+    zone_id:
+      name: Zone ID
+      required: true
+      selector:
+        text:
+    duration:
+      name: Duration
+      description: Optional duration override in minutes.
+      selector:
+        number:
+          min: 0.1
+          max: 360
+          step: 0.1
+          unit_of_measurement: min
+    force:
+      name: Force
+      description: Ignore moisture, rain and frequency checks.
+      default: true
+      selector:
+        boolean:

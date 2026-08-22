@@ -1,0 +1,17 @@
+{
+  "domain": "irrigation_scheduler",
+  "name": "Irrigation Scheduler",
+  "codeowners": [
+    "@markxroberts"
+  ],
+  "config_flow": true,
+  "dependencies": [
+    "persistent_notification"
+  ],
+  "documentation": "https://github.com/markxroberts/irrigation-scheduler",
+  "integration_type": "service",
+  "iot_class": "calculated",
+  "quality_scale": "custom",
+  "requirements": [],
+  "version": "0.2.2"
+}
