@@ -4,6 +4,7 @@ from __future__ import annotations
 from homeassistant.config_entries import ConfigEntry, ConfigEntryState
 from homeassistant.core import HomeAssistant, ServiceCall
 from homeassistant.exceptions import ServiceValidationError
+from homeassistant.helpers import device_registry as dr
 from homeassistant.helpers.typing import ConfigType
 
 from .const import DOMAIN, PLATFORMS
@@ -50,6 +51,20 @@ async def async_setup_entry(
     """Set up Irrigation Scheduler from a config entry."""
     coordinator = IrrigationSchedulerCoordinator(hass, entry)
     await coordinator.async_config_entry_first_refresh()
+
+    # Register the parent scheduler device before forwarding entity platforms.
+    # Child zone devices require the concrete device-registry ID for the modern
+    # ``via_device_id`` relationship; identifier tuples via ``via_device`` are
+    # deprecated and will be removed in Home Assistant 2027.8.
+    parent_device = dr.async_get(hass).async_get_or_create(
+        config_entry_id=entry.entry_id,
+        identifiers={(DOMAIN, entry.entry_id)},
+        name=entry.title,
+        manufacturer="Irrigation Scheduler",
+        model="Shared supply scheduler",
+    )
+    coordinator.parent_device_id = parent_device.id
+
     entry.runtime_data = coordinator
     entry.async_on_unload(entry.add_update_listener(_async_update_listener))
     await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)

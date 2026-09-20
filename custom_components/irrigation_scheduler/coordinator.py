@@ -40,6 +40,10 @@ class IrrigationSchedulerCoordinator(DataUpdateCoordinator[dict[str, Any]]):
             always_update=True,
         )
         self.entry = entry
+        # Set during config-entry setup once the parent scheduler device has
+        # been created in Home Assistant's device registry. Zone entities use
+        # the registry ID with DeviceInfo.via_device_id (the modern API).
+        self.parent_device_id: str | None = None
         self.state = RuntimeState()
         self._unsub_callbacks: list[Callable[[], None]] = []
         self._store = Store(hass, STORAGE_VERSION, f"{DOMAIN}.{entry.entry_id}")

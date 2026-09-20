@@ -49,7 +49,7 @@ class IrrigationZoneEntity(IrrigationEntity):
             name=zone["name"],
             manufacturer="Irrigation Scheduler",
             model="Irrigation zone",
-            via_device=(DOMAIN, coordinator.entry.entry_id),
+            via_device_id=coordinator.parent_device_id,
         )
 
     @property

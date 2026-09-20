@@ -2,7 +2,7 @@
 
 UI-configured irrigation scheduling for multiple valves sharing one water supply.
 
-## 0.2.2 architectural release
+## 0.2.3 architectural release
 
 This release deliberately adds no new scheduling behaviour. It restructures the
 integration around current Home Assistant architecture while preserving existing
@@ -219,3 +219,9 @@ accumulating after this version is installed; Recorder history is not backfilled
 For a LinkTap zone backed by an external failsafe-duration number, the integration
 temporarily raises that number to the effective adaptive duration before opening the
 valve and restores the configured base value after the valve closes.
+
+## v0.2.3
+
+- Migrated zone device relationships from deprecated `DeviceInfo.via_device` identifier tuples to `DeviceInfo.via_device_id`.
+- Registers the parent Garden irrigation scheduler device before forwarding entity platforms, then uses its concrete device-registry ID for all child zone devices.
+- Removes the Home Assistant 2026.9 deprecation warning and is compatible with the planned removal of `via_device` in Home Assistant 2027.8.
